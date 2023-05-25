@@ -7,11 +7,11 @@ This provides an initial example of using Snowpipe Streaming within a Lambda Fun
 - SnowpipeStreamingSample.jar
 - Handler snowflake.aws.lambda.ToSnowflakeEventHandler::handleRequest
 
-3.  Create two Layers and add to Function
+2.  Create two Layers and add to Function
 - GSON (use archive 4_Layers/GSON.zip)
 - Snowpipe_Streaming (use archive 4_Layers/SnowpipeStreaming1_0.zip)
 
-4.  Add Environment Variables
+3.  Add Environment Variables
 - account
 - database
 - schema
@@ -22,5 +22,6 @@ This provides an initial example of using Snowpipe Streaming within a Lambda Fun
 - table
 - debug
 
-5.  Set Timeout to a larger value (start with at least 30 seconds)
+4.  Set additional configuration settings
+- Timeout to a larger value (start with at least 30 seconds)
 

@@ -20,7 +20,7 @@ This provides an initial example of using Snowpipe Streaming within a Lambda Fun
 - user
 - role
 - table
-- debug
+- debug (optional)
 
 4.  Set additional configuration settings
 - Timeout to a larger value (start with at least 30 seconds)

@@ -2,7 +2,7 @@
 
 This provides an initial example of using Snowpipe Streaming within a Lambda Function
 
-##Setup
+## Setup
 1.  Create Lambda Function (Java) using
 - SnowpipeStreamingSample.jar
 - Handler snowflake.aws.lambda.ToSnowflakeEventHandler::handleRequest

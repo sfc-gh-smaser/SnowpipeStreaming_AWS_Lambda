@@ -10,6 +10,7 @@ package snowflake.aws.lambda;
 import java.util.Properties;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -61,13 +62,13 @@ public class ToSnowflakeEventHandler implements RequestHandler<Map<String,String
         }
         catch (Exception ex){
             LOG.error(ex.getMessage());
-            response=new String("500 " +ex.getMessage());
+            response=new String("500 Exception-" +ex.getMessage());
         }
         return response;
     }
 
     // each Map entry creates one row in Snowflake (List??)
-    public String handleRequestAsRows(Map<String,String> event, Context context) {
+    public List<String> handleRequest(List<Map<String,String>> event, Context context) {
         String response = new String("200 OK");
         if(CLIENTID==null) CLIENTID=context.getAwsRequestId();
         if(CLIENT==null || CLIENT.isClosed()) CLIENT=getClient();
@@ -77,7 +78,7 @@ public class ToSnowflakeEventHandler implements RequestHandler<Map<String,String
         InsertValidationResponse resp =null;
         try{
             if(INIT_ERROR!=null) throw new Exception("INIT ERROR:  "+INIT_ERROR);
-            for( String key : event.keySet() ){
+            /*for( String key : event.keySet() ){
                 String value = (String) event.get(key);
                 value=gsonParser.parse(value).toString();
                 if(DEBUG) context.getLogger().log("EVENT_ROW: " + value);
@@ -89,6 +90,7 @@ public class ToSnowflakeEventHandler implements RequestHandler<Map<String,String
                 row.put("EVENT_TYPE",key);
                 resp = CHAN.insertRow(row, String.valueOf(ID));
             }
+            */
             if (resp==null || resp.hasErrors()) throw resp.getInsertErrors().get(0).getException();
             else {
                  String error_msg=checkCommitError(ID,CHAN);
@@ -98,7 +100,7 @@ public class ToSnowflakeEventHandler implements RequestHandler<Map<String,String
         }
         catch (Exception ex){
             LOG.error(ex.getMessage());
-            response=new String("500 " +ex.getMessage());
+            response=new String("500 Exception-" +ex.getMessage());
         }
         return response;
     }
